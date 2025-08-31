@@ -1,4 +1,6 @@
+import { Button } from "@mui/material";
 import type { Route } from "./+types/login";
+import { useNavigate } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,5 +10,12 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function LoginPage() {
-  return <div>Login Page</div>;
+  const navigate = useNavigate();
+
+  return (
+  <div>
+    <div>Login Page</div>
+    <Button variant="outlined" onClick={()=>{navigate("/dashboard")}}>Bypass Login</Button>
+  </div>
+);
 }

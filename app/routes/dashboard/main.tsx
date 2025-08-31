@@ -8,7 +8,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  console.log("testing")
+  
 }
 
 export default function MainPage() {

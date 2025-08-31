@@ -7,10 +7,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-  console.log("testing")
-}
-
-export default function MainPage() {
+export default function SettingsPage() {
   return <div>Settings Page</div>;
 }
