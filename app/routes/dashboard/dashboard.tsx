@@ -1,19 +1,33 @@
 import React, { useEffect } from "react";
 import type { Route } from "./+types/dashboard";
-import { Outlet, redirect, useLoaderData } from "react-router";
+import { Outlet, redirect, useLoaderData, useNavigate } from "react-router";
 import { Box, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import { styled, useTheme } from '@mui/material/styles';
-import { FaInbox } from "react-icons/fa";
-import { CiMail } from "react-icons/ci";
+import { FaCalendar, FaInbox, FaStickyNote } from "react-icons/fa";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from '@mui/material/CssBaseline';
+import { IoHome, IoPersonSharp, IoSettings } from "react-icons/io5";
+import { FaRepeat } from "react-icons/fa6";
+import { BsGraphUpArrow } from "react-icons/bs";
 
 
 //a tsx for all the more secure parts of the app
 
 const drawerWidth = 240;
 const collapsedWidth = 60;
+
+
+const drawerItems = [
+  { name: "Home", icon: <IoHome />, path: "/dashboard" },
+  { name: "Customers", icon: <IoPersonSharp />, path: "/customers" },
+  { name: "Volume", icon: <IoPersonSharp />, path: "/pv" },
+  { name: "Habits", icon: <FaRepeat />, path: "/habits" },
+  { name: "KPI", icon: <BsGraphUpArrow />, path: "/kpi" },
+  { name: "Calendar", icon: <FaCalendar />, path: "/calendar" },
+  { name: "Notes", icon: <FaStickyNote />, path: "/notes" },
+  { name: "Settings", icon: <IoSettings />, path: "/settings" },
+];
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -58,6 +72,7 @@ export const darktheme = createTheme({
 
 function SideBar(){
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -65,9 +80,10 @@ function SideBar(){
 
   const DrawerList = (
     <List>
-      {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-        <ListItem key={text} disablePadding sx={{ display: "block" }}>
+      {drawerItems.map((item) => (
+        <ListItem key={item.name} disablePadding sx={{ display: "block" }}>
           <ListItemButton
+            onClick={() => navigate(item.path)}
             sx={{
               minHeight: 48,
               justifyContent: open ? "initial" : "center",
@@ -81,9 +97,9 @@ function SideBar(){
                 justifyContent: "center",
               }}
             >
-              {index % 2 === 0 ? <FaInbox /> : <CiMail />}
+              {item.icon}
             </ListItemIcon>
-            {open && <ListItemText primary={text} />}
+            {open && <ListItemText primary={item.name} />}
           </ListItemButton>
         </ListItem>
       ))}
