@@ -14,7 +14,7 @@ import { BsGraphUpArrow } from "react-icons/bs";
 
 //a tsx for all the more secure parts of the app
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 const collapsedWidth = 60;
 
 
@@ -126,9 +126,9 @@ export default function DashboardLayout() {
       <CssBaseline />
       <SideBar></SideBar>
 
-      <main>
+      <Box sx={{marginLeft:"60px"}}>
         <Outlet />
-      </main>
+      </Box>
     </ThemeProvider>
   );
 }
