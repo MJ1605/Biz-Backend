@@ -1,6 +1,7 @@
 import { Button, createTheme, TextField, ThemeProvider } from "@mui/material";
 import type { Route } from "./+types/login";
 import { useNavigate } from "react-router";
+import { darktheme } from "~/themes";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,18 +9,6 @@ export function meta({}: Route.MetaArgs) {
     { name: "description", content: "login" },
   ];
 }
-
-//theme for the whole webpage to use
-export const darktheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: { main: "#90caf9"},
-    background: {
-      default: "#121212",
-      paper: "#1e1e1e",
-    },
-  },
-});
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -35,7 +24,7 @@ export default function LoginPage() {
           </div>
           <div className="flex items-center gap-2 m-2">
             <p className="w-24">Password:</p> 
-            <TextField size="small"></TextField>
+            <TextField size="small" type="password"></TextField>
           </div>
           <div className="flex justify-around m-1 mt-2">
             <Button variant="outlined">Login</Button>

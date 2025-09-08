@@ -1,7 +1,9 @@
 import { Button, createTheme, TextField, ThemeProvider } from "@mui/material";
 import type { Route } from "./+types/login";
 import { useNavigate } from "react-router";
-
+import { account } from "~/appwrite";
+import { darktheme } from "~/themes";
+import { useState } from "react";
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Biz Backend" },
@@ -9,20 +11,20 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-//theme for the whole webpage to use
-export const darktheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: { main: "#90caf9"},
-    background: {
-      default: "#121212",
-      paper: "#1e1e1e",
-    },
-  },
-});
-
-export default function LoginPage() {
+export default function CreateAccountPage() {
   const navigate = useNavigate();
+  const [username, SetUsername] = useState("");
+  const [password, SetPassword] = useState("");
+  const [email, SetEmail] = useState("");
+
+  const handleCreateAccount = ()=>{
+    console.log("username:" + username + " Password: " + password);
+  }
+
+  const validateEmail = (value: string) => {
+    // simple regex for email
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  };
 
   return (
     <ThemeProvider theme={darktheme}>
@@ -31,17 +33,28 @@ export default function LoginPage() {
           <p className="text-3xl text-center">Create Account</p>
           <div className="flex items-center gap-2 m-2">
             <p className="w-24">Username:</p>
-            <TextField size="small"></TextField>
+            <TextField size="small" onChange={(e)=>SetUsername(e.target.value)} label="Username"></TextField>
+          </div>
+          <div className="flex items-center gap-2 m-2">
+            <p className="w-24">Email:</p>
+            <TextField size="small" onChange={(e)=>{
+              var validEmail = validateEmail(e.target.value);
+              if (validEmail)
+                SetEmail(e.target.value);
+              else
+              {
+                SetEmail("Error");
+              }
+            }} label="Email" type="email" error={email == "Error"} helperText={email == "Error" ? "Enter a valid email" : ""}></TextField>
           </div>
           <div className="flex items-center gap-2 m-2">
             <p className="w-24">Password:</p> 
-            <TextField size="small"></TextField>
+            <TextField size="small" onChange={(e)=>SetPassword(e.target.value)} label="Password" type="password"></TextField>
           </div>
           <div className="flex justify-around m-1 mt-2">
-            <Button variant="outlined">Login</Button>
-            <Button variant="outlined">Create Account</Button>
+            <Button variant="outlined" onClick={()=>{handleCreateAccount()}}>Create</Button>
+            <Button variant="outlined" onClick={()=>{navigate("/")}}>Back</Button>
           </div>
-            <Button variant="outlined" onClick={()=>{navigate("/dashboard")}}>Bypass Login</Button>
         </div>
       </div>
     </ThemeProvider>

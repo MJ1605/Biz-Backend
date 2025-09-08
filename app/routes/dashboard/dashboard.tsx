@@ -10,6 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { IoHome, IoPersonSharp, IoSettings } from "react-icons/io5";
 import { FaRepeat } from "react-icons/fa6";
 import { BsGraphUpArrow } from "react-icons/bs";
+import { darktheme } from "~/themes";
 
 
 //a tsx for all the more secure parts of the app
@@ -56,18 +57,6 @@ const Drawer = styled(MuiDrawer, {
     }),
   },
 }));
-
-//theme for the whole webpage to use
-export const darktheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: { main: "#90caf9"},
-    background: {
-      default: "#121212",
-      paper: "#1e1e1e",
-    },
-  },
-});
 
 
 function SideBar(){
