@@ -30,7 +30,6 @@ export default function LoginPage() {
             <Button variant="outlined">Login</Button>
             <Button variant="outlined"  onClick={()=>{navigate("/create-account")}}>Create Account</Button>
           </div>
-            <Button variant="outlined" onClick={()=>{navigate("/dashboard")}}>Bypass Login</Button>
         </div>
       </div>
     </ThemeProvider>
