@@ -29,6 +29,9 @@ export default function LoginPage() {
       const loggedIn = await isLoggedIn();
       if (loggedIn) 
         {
+          setBackdropOverlay(true);
+          SetErrorText("Logging In...");
+          await sleep(3000);
           navigate("/dashboard"); 
         }
     };
