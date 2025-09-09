@@ -5,7 +5,7 @@ import { account, ID } from "~/appwrite";
 import { darktheme } from "~/themes";
 import { useState } from "react";
 import { AppwriteException } from "appwrite";
-import { sleep } from "~/helpers";
+import { sleep, validateEmail } from "~/helpers";
 import { SiTicktick } from "react-icons/si";
 import { MdError } from "react-icons/md";
 export function meta({}: Route.MetaArgs) {
@@ -13,11 +13,6 @@ export function meta({}: Route.MetaArgs) {
     { title: "Biz Backend" },
     { name: "description", content: "login" },
   ];
-}
-
-async function CreateAccount()
-{
-
 }
 
 export default function CreateAccountPage() {
@@ -31,10 +26,6 @@ export default function CreateAccountPage() {
   
 
   const handleCreateAccount = async ()=>{
-    console.log("username:" + username + " Password: " + password, " Email: " + email);
-
-    
-
     const newError = {
       username: username.trim() === "",
       password: {required: password.trim() === "", length: !(password.length >= 8 && password.length <= 265)},
@@ -54,9 +45,11 @@ export default function CreateAccountPage() {
       try {
         const result = await account.create(ID.unique(), email, password, username);
         console.log("account created");
+        SetErrorText("Account Succesfully Created");
         await sleep(3000);
         setBackdropOverlay(false);
-        SetErrorText("Account Succesfully Created");
+        SetErrorText("");
+        navigate("/");
       } catch (error :unknown){
         if (error instanceof AppwriteException)
         {
@@ -64,6 +57,7 @@ export default function CreateAccountPage() {
           SetErrorText(error.message);
           await sleep(3000);
           setBackdropOverlay(false);
+          SetErrorText("");
         }
         else
         {
@@ -71,16 +65,14 @@ export default function CreateAccountPage() {
           SetErrorText("Unexpected Error occured, check console");
           await sleep(3000);
           setBackdropOverlay(false);
+          SetErrorText("");
         }
       }
     }
     
   }
 
-  const validateEmail = (value: string) => {
-    // simple regex for email
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  };
+  
 
   return (
     <ThemeProvider theme={darktheme}>

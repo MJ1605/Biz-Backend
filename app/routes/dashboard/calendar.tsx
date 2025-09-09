@@ -3,10 +3,10 @@ import type { Route } from "./+types/settings";
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Biz Backend" },
-    { name: "description", content: "settings" },
+    { name: "description", content: "calendar" },
   ];
 }
 
-export default function SettingsPage() {
-  return <div>Settings Page</div>;
+export default function CalendarPage() {
+  return <div>Calendar Page</div>;
 }

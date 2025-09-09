@@ -11,6 +11,7 @@ import { IoHome, IoPersonSharp, IoSettings } from "react-icons/io5";
 import { FaRepeat } from "react-icons/fa6";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { darktheme } from "~/themes";
+import { isLoggedIn } from "~/helpers";
 
 
 //a tsx for all the more secure parts of the app
@@ -21,13 +22,13 @@ const collapsedWidth = 60;
 
 const drawerItems = [
   { name: "Home", icon: <IoHome />, path: "/dashboard" },
-  { name: "Customers", icon: <IoPersonSharp />, path: "/customers" },
-  { name: "Volume", icon: <IoPersonSharp />, path: "/pv" },
-  { name: "Habits", icon: <FaRepeat />, path: "/habits" },
-  { name: "KPI", icon: <BsGraphUpArrow />, path: "/kpi" },
-  { name: "Calendar", icon: <FaCalendar />, path: "/calendar" },
-  { name: "Notes", icon: <FaStickyNote />, path: "/notes" },
-  { name: "Settings", icon: <IoSettings />, path: "/settings" },
+  { name: "Customers", icon: <IoPersonSharp />, path: "/dashboard/customers" },
+  { name: "Volume", icon: <IoPersonSharp />, path: "/dashboard/volume" },
+  { name: "Habits", icon: <FaRepeat />, path: "/dashboard/habits" },
+  { name: "KPI", icon: <BsGraphUpArrow />, path: "/dashboard/kpi" },
+  { name: "Calendar", icon: <FaCalendar />, path: "/dashboard/calendar" },
+  { name: "Notes", icon: <FaStickyNote />, path: "/dashboard/notes" },
+  { name: "Settings", icon: <IoSettings />, path: "/dashboard/settings" },
 ];
 
 export function meta({}: Route.MetaArgs) {
@@ -105,10 +106,16 @@ function SideBar(){
 
 export default function DashboardLayout() {
   // const { user, notifications } = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
 
   useEffect(()=>{
-    console.log("Client Side")
-  },[]);
+    const checkLogin = async () => {
+          const loggedIn = await isLoggedIn();
+          if (!loggedIn) navigate("/"); 
+        };
+    
+        checkLogin();
+  },[])
 
   return (
     <ThemeProvider theme={darktheme}>
