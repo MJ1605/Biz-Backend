@@ -120,11 +120,14 @@ export default function DashboardLayout() {
   return (
     <ThemeProvider theme={darktheme}>
       <CssBaseline />
-      <SideBar></SideBar>
-
-      <Box sx={{marginLeft:"60px"}}>
-        <Outlet />
-      </Box>
+      <div className="flex w-screen h-screen overflow-hidden">
+        <div className="w-[60px] flex-shrink-0">
+          <SideBar />
+        </div>
+        <Box className="flex-1 overflow-auto">
+          <Outlet />
+        </Box>
+      </div>
     </ThemeProvider>
   );
 }
